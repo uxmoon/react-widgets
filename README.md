@@ -116,6 +116,12 @@ We use hooks to track our State, but we use the same approach as Class based com
 - Assign a **value prop** to the search input
 - Assign an **onChange event handler**. Anytime the value inside that input has changed we need to update the State piece that keep track of the value. That input is going to cause our component to re render and see the new value inside of it.
 
+**useEffect**
+
+Make a request to the Wikipedia API only when we detected that the component has re rendered and term has changed.
+
+We use the hook to add code to detect that *term* has changed.
+
 ---
 
 ## Widget: Dropdown
