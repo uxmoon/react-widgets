@@ -154,6 +154,37 @@ const Search = () => {
 | Run at initial render | Run at initial render | Run at initial render |
 |  | Run after every rerender | Run after every rerender *if* data has changed since last render |
 
+### Async code in useEffect
+
+- Can't use `async/await`, create a helper function instead and call it immediately.
+- An alternative method is to use the function helper without a variable declaration
+- A third option is to use the `.then()` method, using normal promises. The response arrow will be invoked with the response.
+
+```js
+
+useEffect(() => {
+
+  // Method #1
+  const search = async () => {
+    await axios.get("https://")
+  };
+
+  search();
+
+  // Method #2
+  (async () => {
+    await axios.get("https://")
+  })();
+
+  // Method #3
+  axios.get("https://")
+    .then((response) => {
+      console.log(response.data)
+    });
+
+}, [term]);
+```
+
 ---
 
 ## Widget: Dropdown
