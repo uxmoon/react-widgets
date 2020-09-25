@@ -1,68 +1,94 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Understanding Hooks in React
 
-## Available Scripts
+## Understanding useSate
 
-In the project directory, you can run:
+**useState**: function that lets you use **state** in a functional component.
 
-### `yarn start`
+### Usage
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+We call useState from the React library
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+```jsx
+import React, { useState } from "react";
+```
 
-### `yarn test`
+### Syntax
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Use **array destructuring**, shortcut to get references to elements inside of an Array.
 
-### `yarn build`
+```js
+// Array
+const colors = ["red", "green"];
+```
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Call individual items inside the array:
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+```js
+const redColor = colors[0];
+const greenColor = colors[1];
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Using **array destructuring** we use the following syntax:
 
-### `yarn eject`
+```js
+const [firstElement, secondElement] = colors;
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+- On the left **we are not** creating an array
+- We tell Js we want to access the first item of the array and assign it to a variable
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```jsx
+// Array
+const things = useState(null);
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+// Before
+const activeIndex = things[0];
+const setActiveindex = things[1];
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+// After
+const [activeIndex, setActiveIndex] = useState(null);
+```
 
-## Learn More
+### Individual names
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- `activeIndex` is a value that will change over time, element to keep track of.
+- `setActiveIndex` is a function to call when we need to update our state (setter function).
+- `useState` takes a default value, the initial value is set to `activeIndex`.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Examples
 
-### Code Splitting
+Name of a person
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+```jsx
+const [name, setName] = useState("");
+```
 
-### Analyzing the Bundle Size
+- The initial value is an empty string
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+Counter
 
-### Making a Progressive Web App
+```jsx
+const [counter, setCounter] = useState(0);
+```
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
+Color
 
-### Advanced Configuration
+```jsx
+const [color, setColor] = useState("green");
+```
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
+### Class Components vs Function Components
 
-### Deployment
+| | Class components | Function components |
+| --- | --- | --- |
+| Initialization | state={ activeIndex: 0 } | useState(0) |
+| Reference | this.state.activeIndex | activeIndex; |
+| Updates | this.setState({ activeIndex: 10 }) | setActiveIndex(10); |
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
+**Class components**
 
-### `yarn build` fails to minify
+Very easy to define and change multiple pieces of state at the same time.
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+**Function components**
+
+If we want to have multiple pieces of states, we call useState multiple times. We define and initialize index and search term piece of state. And then call both setters to update.
