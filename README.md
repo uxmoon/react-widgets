@@ -92,3 +92,13 @@ Very easy to define and change multiple pieces of state at the same time.
 **Function components**
 
 If we want to have multiple pieces of states, we call useState multiple times. We define and initialize index and search term piece of state. And then call both setters to update.
+
+---
+
+## Accordion
+
+We need to compare the index we are currently iterating over with the active index state, then add the active class.
+
+```js
+const isActive = index === activeIndex ? 'active' : '';
+```
