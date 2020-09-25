@@ -6,32 +6,38 @@ const Search = () => {
   const [results, setResults] = useState([]);
 
   /* test results */
-  console.log(results);
+  // console.log(results);
 
   /* make a request inside of useEffect with axios using async code */
   useEffect(() => {
-    const search = async () => {
-      const { data } = await axios.get("https://en.wikipedia.org/w/api.php", {
-        params: {
-          action: "query",
-          list: "search",
-          origin: "*",
-          format: "json",
-          srsearch: term,
-        },
-      });
+    // const search = async () => {
+    //   const { data } = await axios.get("https://en.wikipedia.org/w/api.php", {
+    //     params: {
+    //       action: "query",
+    //       list: "search",
+    //       origin: "*",
+    //       format: "json",
+    //       srsearch: term,
+    //     },
+    //   });
 
-      /* update results State */
-      setResults(data.query.search);
+    //   /* update results State */
+    //   setResults(data.query.search);
+    // };
+
+    // /* reduce API requests */
+    // const timeoutId = setTimeout(() => {
+    //   /* don't search if a term is not provided */
+    //   if (term) {
+    //     search();
+    //   }
+    // }, 500);
+    console.log("init term or term changed")
+
+    /* clean up function, react will call this fn in a certain point in time */
+    return () => {
+      console.log("clean up")
     };
-
-    /* reduce API requests */
-    const timeoutId = setTimeout(() => {
-      /* don't search if a term is not provided */
-      if (term) {
-        search();
-      }
-    }, 500);
   }, [term]);
 
   const renderedResults = results.map((result) => {
