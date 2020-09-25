@@ -22,30 +22,37 @@ const Search = () => {
       });
 
       /* update results State */
-      setResults(data.query.search)
+      setResults(data.query.search);
     };
 
-    /* don't search if a term is not provided by default */
-    if(term) {
-      search();
-    }
+    /* reduce API requests */
+    setTimeout(() => {
+      /* don't search if a term is not provided */
+      if (term) {
+        search();
+      }
+    }, 500);
   }, [term]);
 
   const renderedResults = results.map((result) => {
     return (
       <div className="item" key={result.pageid}>
         <div className="right floated content">
-          <a href={`https://en.wikipedia.org?curid=${result.pageid}`} className="ui button" target="_blank">Go</a>
+          <a
+            href={`https://en.wikipedia.org?curid=${result.pageid}`}
+            className="ui button"
+            target="_blank"
+          >
+            Go
+          </a>
         </div>
         <div className="content">
-          <div className="header">
-            {result.title}
-          </div>
+          <div className="header">{result.title}</div>
           <span dangerouslySetInnerHTML={{ __html: result.snippet }}></span>
         </div>
       </div>
-    )
-  })
+    );
+  });
 
   return (
     <div>
@@ -60,9 +67,7 @@ const Search = () => {
           />
         </div>
       </div>
-      <div className="ui celled list">
-        {renderedResults}
-      </div>
+      <div className="ui celled list">{renderedResults}</div>
     </div>
   );
 };
