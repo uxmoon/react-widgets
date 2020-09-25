@@ -95,10 +95,30 @@ If we want to have multiple pieces of states, we call useState multiple times. W
 
 ---
 
-## Accordion
+## Widget: Accordion
+
+**Hooks**: useState
 
 We need to compare the index we are currently iterating over with the active index state, then add the active class.
 
 ```js
 const isActive = index === activeIndex ? 'active' : '';
 ```
+
+---
+
+## Widget: List
+
+**Hooks**: useState, useEffect
+
+---
+
+## Widget: Dropdown
+
+**Hooks**: useState, useEffect, useRef
+
+---
+
+## Widget: Translate
+
+**Hooks**: useState, useEffect, useRef
