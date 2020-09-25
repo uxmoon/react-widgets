@@ -26,7 +26,7 @@ const Search = () => {
     };
 
     /* reduce API requests */
-    setTimeout(() => {
+    const timeoutId = setTimeout(() => {
       /* don't search if a term is not provided */
       if (term) {
         search();
