@@ -25,18 +25,24 @@ const Search = () => {
       setResults(data.query.search);
     };
 
-    /* reduce API requests */
-    const timeoutId = setTimeout(() => {
-      /* don't search if a term is not provided */
-      if (term) {
-        search();
-      }
-    }, 800);
+    /* first time we render the component */
+    if(term && !results.length) {
+      /* make a request */
+      search();
+    } else {
+      /* reduce API requests */
+      const timeoutId = setTimeout(() => {
+        /* don't search if a term is not provided */
+        if (term) {
+          search();
+        }
+      }, 800);
 
-    /* clean up function, react will call this fn in a certain point in time */
-    return () => {
-      clearTimeout(timeoutId);
-    };
+      /* clean up function, react will call this fn in a certain point in time */
+      return () => {
+        clearTimeout(timeoutId);
+      };
+    }
   }, [term]);
 
   const renderedResults = results.map((result) => {
