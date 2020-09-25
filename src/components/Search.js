@@ -2,25 +2,33 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 const Search = () => {
-  const [term, setTerm] = useState("");
+  const [term, setTerm] = useState("php");
+  const [results, setResults] = useState([]);
 
-  /* make a request inside of useEffect with axios */
+  /* test results */
+  console.log(results);
+
+  /* make a request inside of useEffect with axios using async code */
   useEffect(() => {
-
     const search = async () => {
-      await axios.get("https://en.wikipedia.org/w/api.php", {
+      const { data } = await axios.get("https://en.wikipedia.org/w/api.php", {
         params: {
           action: "query",
           list: "search",
           origin: "*",
           format: "json",
           srsearch: term,
-        }
-      })
+        },
+      });
+
+      /* update results State */
+      setResults(data.query.search)
     };
 
-    search();
-
+    /* don't search if a term is not provided by default */
+    if(term) {
+      search();
+    }
   }, [term]);
 
   return (
