@@ -116,11 +116,43 @@ We use hooks to track our State, but we use the same approach as Class based com
 - Assign a **value prop** to the search input
 - Assign an **onChange event handler**. Anytime the value inside that input has changed we need to update the State piece that keep track of the value. That input is going to cause our component to re render and see the new value inside of it.
 
-**useEffect**
+**API request**
 
 Make a request to the Wikipedia API only when we detected that the component has re rendered and term has changed.
 
+**useEffect**
+
 We use the hook to add code to detect that *term* has changed.
+
+- Allows fn components to use *something like*  lifecycle methods, e.g. run some code when the component first render to the screen, when is re rendered, or something else happens.
+- When we make use of **useEffect** we provide some configuration to when we run some code automatically in one of three scenarios.
+
+1. When the component is rendered *for the first time only*.
+1. When the component is rendered *for the first time and rerenders*.
+1. When the component is rendered *for the first time and (whenever it rerenders and some piece of data has changed)*
+
+### useEffect Usage and Syntax
+
+- Import from React library
+- Call useEffect...
+- ...provide a fn as a first argument
+- provide a second argument to specify a scenario: nothing, an empty array or an array with values inside of it.
+
+```js
+import React, { useState, useEffect } from "react";
+
+const Search = () => {
+  useEffect(() => {
+    console.log("hello")
+  }, [])
+```
+
+### useEffect second argument
+
+| `[]` | `...nothing...` | `[data]` |
+| --- | --- | --- |
+| Run at initial render | Run at initial render | Run at initial render |
+|  | Run after every rerender | Run after every rerender *if* data has changed since last render |
 
 ---
 
