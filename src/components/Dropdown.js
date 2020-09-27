@@ -6,7 +6,8 @@ const Dropdown = ({ options, selected, onSelectedChange }) => {
 
   /* Add event listener */
   useEffect(() => {
-    document.body.addEventListener('click', (event) => {
+
+    const onBodyClick = (event) => {
 
       /* use contains() method is inside the ref.current element */
       if(ref.current.contains(event.target)) {
@@ -14,7 +15,14 @@ const Dropdown = ({ options, selected, onSelectedChange }) => {
       }
 
       setOpen(false);
-    });
+    };
+
+    document.body.addEventListener('click', onBodyClick);
+
+    /* Add clean up function when dropdown is hidden */
+    return () => {
+      document.body.removeEventListener('click', onBodyClick);
+    };
   }, []);
 
   const renderedOptions = options.map((option) => {
