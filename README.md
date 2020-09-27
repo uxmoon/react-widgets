@@ -195,6 +195,39 @@ We need to use another feature of useEffect when we want to add a **setTimeout()
 
 **Hooks**: useState, useEffect, useRef
 
+The Dropdown needs to detect a click event on any elements besides one it created, taking into consideration Event bubbling. The user can't close the dropdown when clicks outside of the dropdown.
+
+**Order of execution**
+
+- addEventListener are called first
+- then all othe react onClick events are called
+
+**useRef**
+
+Make use of useRef to get a **ref**rence of our top level element inside the dropdown and then use that to decide whether or not the element that was clicked on is inside or contained inside the ui form.
+
+```jsx
+import React, { useState, useEffect, useRef } from 'react';
+
+...
+
+useEffect(() => {
+  document.body.addEventListener('click', (event) => {
+
+    if(ref.current.contains(event.target)) {
+      return;
+    }
+
+    setOpen(false);
+  });
+}, []);
+
+...
+
+return (
+  <div ref={ref} className="ui form">
+```
+
 ---
 
 ## Widget: Translate
