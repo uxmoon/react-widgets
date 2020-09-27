@@ -1,13 +1,17 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 /**
  * No need to import React when not using JSX
  * @param {path} window.location.pathname
  * children is the Component to show
  */
 const Route = ({ path, children }) => {
+
+  const [currentPath, setCurrentPath] = useState(window.location.pathname);
+
   useEffect(() => {
     const onLocationChange = () => {
-      console.log('location changed');
+      //console.log('location changed');
+      setCurrentPath(window.location.pathname)
     };
     window.addEventListener('popstate', onLocationChange);
 
@@ -15,7 +19,7 @@ const Route = ({ path, children }) => {
       window.removeEventListener('popstate', onLocationChange);
     };
   }, []);
-  return window.location.pathname === path ? children : null;
+  return currentPath === path ? children : null;
 };
 
 /* Listen to navigation event */
