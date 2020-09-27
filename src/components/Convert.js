@@ -4,6 +4,18 @@ import axios from 'axios';
 const Convert = ({ language, text }) => {
   /* init state */
   const [translated, setTranslated] = useState('');
+  const [debouncedText, setDebouncedText] = useState(text);
+
+  useEffect(() => {
+    const timerId = setTimeout(() => {
+      setDebouncedText(text);
+    }, 500);
+
+    /* clean up */
+    return () => {
+      clearTimeout(timerId);
+    };
+  }, [text]);
 
   useEffect(() => {
     /* helper function */
@@ -13,7 +25,7 @@ const Convert = ({ language, text }) => {
         {},
         {
           params: {
-            q: text,
+            q: debouncedText,
             target: language.value,
             key: 'AIzaSyCHUCmpR7cT_yDFHC98CZJy2LTms-IwDlM',
           },
@@ -24,12 +36,9 @@ const Convert = ({ language, text }) => {
     };
 
     doTranslation();
+  }, [language, debouncedText]);
 
-  }, [language, text]);
-
-  return (
-    <h1 className="ui header">{translated}</h1>
-  );
+  return <h1 className="ui header">{translated}</h1>;
 };
 
 export default Convert;
