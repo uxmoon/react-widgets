@@ -24,6 +24,10 @@ const Translate = () => {
 
   return (
     <div>
+      <div className="ui icon warning message">
+        <p>The translation service only works on http://localhost:3000 to avoid several API requests.</p>
+
+      </div>
       <div className="ui form">
         <div className="field">
           <label>Enter text</label>
